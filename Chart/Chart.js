@@ -101,7 +101,7 @@ class Chart {
         const fMax = fn(endX);
         const fMin = fn(startX);
         const rangeY = fMax - fMin;
-        console.log(fMin, fMax);
+        // console.log(fMin, fMax);
 
         for (let i = 0; i < ((endX - startX) * divider) + 1; i++) {
             let x = step * i;
@@ -199,7 +199,6 @@ class Chart {
         }
 
 
-        // console.log(this.metaData)
         const width = this.metaData.width;
         const height = this.metaData.height;
         const rangeX = this.metaData.rangeX;
@@ -209,13 +208,11 @@ class Chart {
 
         let x = ((positionX - this.CHART_PADDING) * (rangeX - 1) / width) + this.metaData.startX;
         let y = this.fn(x);
-        // console.log(y)
+
         this.ctxUI.textAlign = 'left';
         this.ctxUI.textBaseline = 'middle';
         this.ctxUI.fillStyle = 'black';
         this.ctxUI.fillText(`(X=${x.toFixed(3)}, Y=${y.toFixed(3)})`, this.CHART_PADDING, this.CHART_PADDING / 2);
-
-        console.log(fMax, fMin, this.metaData.fMax, this.metaData.fMin)
 
         // let chartX = (x * width / (rangeX - 1)) + CHART_PADDING;
         let chartY = ((y - fMin) * height / rangeY) + this.CHART_PADDING;
