@@ -112,13 +112,13 @@
             return annualSavings * sum(1 + rateOfReturn, years);
         }
 
-
+        console.log('START')
         const chartDiv = document.getElementById('Chart');
         let chart = new Chart(chartDiv, 'Savings');
 
         let annualSavings = 54;
         let rateOfReturn = 0.2;
-        let years = 10;
+        let years = 20;
 
         chart.drawChart((x) => compoundInterestSavings(x, annualSavings, rateOfReturn), 0, years);//TODO: BUG WHEN startX !=0
 

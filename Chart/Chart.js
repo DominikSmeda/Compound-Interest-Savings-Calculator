@@ -13,6 +13,7 @@ class Chart {
         this.CHART_TITLE = TITLE;
         this.TITLE_FONT = "16px Arial bold";
         this.TITLE_COLOR = '#ff6600';
+        this.PICKER_COLOR = 'gray';
         this.CHART_FUNCTION_VALUES_PADDING = 40;
         //AFTER Modification CALL drawChart() //TODO: GETTER/SETTER?
         //-----------------------------------------
@@ -71,6 +72,7 @@ class Chart {
 
     saveAsImage() {
         let image = this.chartCanvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+        console.log(image)
         window.location.href = image;
     }
 
@@ -140,7 +142,7 @@ class Chart {
         this.ctx.save();
         let rangeYGrid = rangeX;
 
-        for (let i = 0; i < rangeY; i++) {
+        for (let i = 0; i < rangeYGrid; i++) {
             this.ctx.beginPath();
             this.ctx.strokeStyle = this.GRID_COLOR;
             this.ctx.lineWidth = 1;
@@ -154,7 +156,8 @@ class Chart {
 
             let textY = (i * height / (rangeYGrid - 1))
 
-            let y = (rangeYGrid * textY / height) + fMin;
+            let y = (rangeY * textY / height) + fMin;
+            // let y = 1
 
             this.ctx.fillText(y.toFixed(3), width + this.CHART_PADDING + 10, this.HEIGHT - textY - this.CHART_PADDING);
         }
@@ -192,7 +195,7 @@ class Chart {
             return;
         }
 
-        this.ctxUI.save();
+
         // console.log(this.metaData)
         const width = this.metaData.width;
         const height = this.metaData.height;
@@ -215,7 +218,9 @@ class Chart {
         let chartY = ((y - fMin) * height / rangeY) + this.CHART_PADDING;
         // console.log(chartY)
 
-
+        this.ctxUI.save();
+        this.ctxUI.fillStyle = this.PICKER_COLOR;
+        this.ctxUI.strokeStyle = this.PICKER_COLOR;
         this.ctxUI.beginPath();
         this.ctxUI.moveTo(0, this.HEIGHT - chartY);
         this.ctxUI.lineTo(this.WIDTH, this.HEIGHT - chartY);
@@ -225,9 +230,12 @@ class Chart {
         this.ctxUI.moveTo(mouseX, 0);
         this.ctxUI.lineTo(mouseX, this.HEIGHT);
         this.ctxUI.stroke();
-        this.ctxUI.restore();
+
 
         this.ctxUI.fillRect(mouseX - 2, this.HEIGHT - chartY - 2, 4, 4);
+
+        this.ctxUI.restore();
+
     }
 };
 
