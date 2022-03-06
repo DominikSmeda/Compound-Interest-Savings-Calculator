@@ -36,12 +36,14 @@ class Chart {
         this.chartCanvas.className = 'chart'
         this.chartCanvas.width = this.WIDTH;
         this.chartCanvas.height = this.HEIGHT
+        this.chartCanvas.style.zIndex = 10;
         this.ctx = this.chartCanvas.getContext('2d');
 
         this.uiCanvas = document.createElement('canvas');
         this.uiCanvas.className = 'ui'
         this.uiCanvas.width = this.WIDTH;
         this.uiCanvas.height = this.HEIGHT
+        this.uiCanvas.style.zIndex = 11;
         this.ctxUI = this.uiCanvas.getContext('2d');
 
         this.rootDiv.append(this.chartCanvas);
@@ -104,7 +106,7 @@ class Chart {
             let y = fn(x);
 
             let chartX = (x * width / (rangeX - 1)) + this.CHART_PADDING;
-            let chartY = this.HEIGHT - ((y - fMin) * height / rangeY) - this.CHART_PADDING;
+            let chartY = this.HEIGHT - ((y) * height / (rangeY)) - this.CHART_PADDING;
 
             // console.log(`x:${x}, y:${y} | chartX:${chartX}, chartY${chartY} | rangeY:${rangeY}`)
 
@@ -140,8 +142,8 @@ class Chart {
         this.ctx.restore();
 
         this.ctx.save();
-        let rangeYGrid = rangeX;
 
+        let rangeYGrid = rangeX;
         for (let i = 0; i < rangeYGrid; i++) {
             this.ctx.beginPath();
             this.ctx.strokeStyle = this.GRID_COLOR;
@@ -155,9 +157,7 @@ class Chart {
             this.ctx.fillStyle = 'black';
 
             let textY = (i * height / (rangeYGrid - 1))
-
             let y = (rangeY * textY / height) + fMin;
-            // let y = 1
 
             this.ctx.fillText(y.toFixed(3), width + this.CHART_PADDING + 10, this.HEIGHT - textY - this.CHART_PADDING);
         }
@@ -169,7 +169,8 @@ class Chart {
             fMax,
             fMin,
             width,
-            height
+            height,
+            startX
         }
 
         this.chartTitle();
@@ -181,15 +182,15 @@ class Chart {
             let rect = e.target.getBoundingClientRect();
             let mouseX = e.clientX - rect.left;
             let mouseY = e.clientY - rect.top;
-            // console.log("Left? : " + mouseX + " ; Top? : " + mouseY + ".");
+
             this.renderPicker(mouseX, mouseY);
         })
     }
 
-    renderPicker(mouseX, mouseY) {
+    renderPicker(positionX, positionY) {
         this.ctxUI.clearRect(0, 0, this.WIDTH, this.HEIGHT);
 
-        if (mouseX > this.CHART_PADDING && mouseY > this.CHART_PADDING && mouseX < this.WIDTH - this.CHART_PADDING - this.CHART_FUNCTION_VALUES_PADDING) {
+        if (positionX > this.CHART_PADDING && positionY > this.CHART_PADDING && positionX < this.WIDTH - this.CHART_PADDING - this.CHART_FUNCTION_VALUES_PADDING) {
         }
         else {
             return;
@@ -204,7 +205,7 @@ class Chart {
         const fMin = this.metaData.fMin;
         const fMax = this.metaData.fMax;
 
-        let x = (mouseX - this.CHART_PADDING) * (rangeX - 1) / width;
+        let x = ((positionX - this.CHART_PADDING) * (rangeX - 1) / width) + this.metaData.startX;
         let y = compoundInterestSavings(x);
         // console.log(y)
         this.ctxUI.textAlign = 'left';
@@ -227,12 +228,12 @@ class Chart {
         this.ctxUI.stroke();
 
         this.ctxUI.beginPath();
-        this.ctxUI.moveTo(mouseX, 0);
-        this.ctxUI.lineTo(mouseX, this.HEIGHT);
+        this.ctxUI.moveTo(positionX, 0);
+        this.ctxUI.lineTo(positionX, this.HEIGHT);
         this.ctxUI.stroke();
 
 
-        this.ctxUI.fillRect(mouseX - 2, this.HEIGHT - chartY - 2, 4, 4);
+        this.ctxUI.fillRect(positionX - 2, this.HEIGHT - chartY - 2, 4, 4);
 
         this.ctxUI.restore();
 
