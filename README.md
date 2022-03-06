@@ -17,6 +17,7 @@ CHART Customization:
 
 
 > USAGE: 
+        
         const chartDiv = document.getElementById('Chart');
         const chart = new Chart(chartDiv, 'Title');
 
