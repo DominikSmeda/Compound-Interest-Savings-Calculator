@@ -27,6 +27,7 @@ class Chart {
         this.HEIGHT = HEIGHT;
 
         this.metaData = {};
+        this.fn = null;
 
         this.init();
     }
@@ -79,6 +80,7 @@ class Chart {
     }
 
     drawChart(fn, startX, endX, divider = this.CHART_DIVIDER) {
+        this.fn = fn;
         this.ctx.clearRect(0, 0, this.WIDTH, this.HEIGHT);
 
         let rangeX = endX - startX + 1;
@@ -206,7 +208,7 @@ class Chart {
         const fMax = this.metaData.fMax;
 
         let x = ((positionX - this.CHART_PADDING) * (rangeX - 1) / width) + this.metaData.startX;
-        let y = compoundInterestSavings(x);
+        let y = this.fn(x);
         // console.log(y)
         this.ctxUI.textAlign = 'left';
         this.ctxUI.textBaseline = 'middle';

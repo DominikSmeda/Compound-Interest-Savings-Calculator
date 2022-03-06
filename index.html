@@ -83,8 +83,10 @@
             Console
             <div class='input'>
                 <div class='input-name'>Annual Savings: </div>
+
                 <input type='text'>
             </div>
+            <button>Save as Image</button>
         </div>
     </div>
     <script src='Chart/Chart.js'></script>
@@ -107,9 +109,9 @@
         const chartDiv = document.getElementById('Chart');
         let chart = new Chart(chartDiv, 'Savings');
 
-        let annualSavings = 54;
+        let annualSavings = 14;
         let rateOfReturn = 0.2;
-        let years = 20;
+        let years = 14;
 
         chart.drawChart((x) => compoundInterestSavings(x, annualSavings, rateOfReturn), 0, years);//TODO: BUG WHEN startX !=0
 
