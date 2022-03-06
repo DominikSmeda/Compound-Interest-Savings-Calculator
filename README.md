@@ -21,7 +21,7 @@ CHART Customization:
         const chartDiv = document.getElementById('Chart');
         const chart = new Chart(chartDiv, 'Title');
 
-        chart.drawChart((x) => f(x)), 0, years);
+        chart.drawChart((x) => f(x)), startX, endX);
 
         chart.rootDiv.addEventListener('dblclick', () => {
             chart.saveAsImage();
