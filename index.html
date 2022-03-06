@@ -80,45 +80,45 @@
 
     <div id="console">
         <div id='container'>
-            Console
-            <div class='input'>
+            Input GUI Not implemented YET. OPEN YOUR CODE EDITOR!
+            <!-- <div class='input'>
                 <div class='input-name'>Annual Savings: </div>
 
                 <input type='text'>
             </div>
             <button>Save as Image</button>
+        </div> -->
         </div>
-    </div>
-    <script src='Chart/Chart.js'></script>
-    <script>
-        //@copyright all rights reserved to Dominik Smęda 2022
+        <script src='Chart/Chart.js'></script>
+        <script>
+            //@copyright all rights reserved to Dominik Smęda 2022
 
-        function sum(x, n) { // 1 + x^0 +x^1 +x^2 +... + x^n
-            if (n <= 0)
-                return n + 1;
-            else {
-                return Math.pow(x, n) + sum(x, n - 1)
+            function sum(x, n) { // 1 + x^0 +x^1 +x^2 +... + x^n
+                if (n <= 0)
+                    return n + 1;
+                else {
+                    return Math.pow(x, n) + sum(x, n - 1)
+                }
             }
-        }
 
-        function compoundInterestSavings(years = 100, annualSavings = 54, rateOfReturn = 0.2) {
-            return annualSavings * sum(1 + rateOfReturn, years);
-        }
+            function compoundInterestSavings(years = 100, annualSavings = 54, rateOfReturn = 0.2) {
+                return annualSavings * sum(1 + rateOfReturn, years);
+            }
 
-        const chartDiv = document.getElementById('Chart');
-        let chart = new Chart(chartDiv, 'Savings');
+            const chartDiv = document.getElementById('Chart');
+            let chart = new Chart(chartDiv, 'Savings');
 
-        let annualSavings = 14;
-        let rateOfReturn = 0.2;
-        let years = 14;
+            let annualSavings = 14;
+            let rateOfReturn = 0.2;
+            let years = 14;
 
-        chart.drawChart((x) => compoundInterestSavings(x, annualSavings, rateOfReturn), 0, years);//TODO: BUG WHEN startX !=0
+            chart.drawChart((x) => compoundInterestSavings(x, annualSavings, rateOfReturn), 0, years);//TODO: BUG WHEN startX !=0
 
-        chart.rootDiv.addEventListener('dblclick', () => {
-            chart.saveAsImage();
-        })
+            chart.rootDiv.addEventListener('dblclick', () => {
+                chart.saveAsImage();
+            })
 
-    </script>
+        </script>
 </body>
 
 </html>
