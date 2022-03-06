@@ -106,7 +106,7 @@ class Chart {
             let y = fn(x);
 
             let chartX = (x * width / (rangeX - 1)) + this.CHART_PADDING;
-            let chartY = this.HEIGHT - ((y) * height / (rangeY)) - this.CHART_PADDING;
+            let chartY = this.HEIGHT - ((y - fMin) * height / (rangeY)) - this.CHART_PADDING;
 
             // console.log(`x:${x}, y:${y} | chartX:${chartX}, chartY${chartY} | rangeY:${rangeY}`)
 
